@@ -16,16 +16,17 @@
         <link href="css/signin.css" rel="stylesheet"> 
         <link href="css/menu_css.css" rel="stylesheet" >
         <link href="css/product.css" rel="stylesheet" >
+        
         <!-- Custom styles for this template -->
     </head>
     <body>
-        <jsp:include page="menu.jsp"></jsp:include>
+        <%--<jsp:include page="menu.jsp"></jsp:include>--%>
 
             <main class="form-signin w-100 m-auto">
 
                 <form action="AddEmployee" method="post">
 
-                    <img class="mb-4" src="images/flower-logo.jpg" alt="" width="150" height="150">
+                    <img class="mb-2" src="images/flower-logo.jpg" alt="" width="150" height="150">
 
                     <h1 class="h3 mb-3 fw-normal">Add Employee Data</h1>
 
@@ -96,6 +97,8 @@
                     </select>
                     <label for="floatingInput">Role</label>
                 </div>
+
+                
 
                 <div class="form-floating">
                     <input type="number" value= 0 class="form-control" id="floatingInput" placeholder="basicSalary" name="basicSalary" min="0" required>

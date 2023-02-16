@@ -6,13 +6,13 @@
     <!-- Configuration for the default package. -->
     <package name="default" namespace="/" extends="struts-default">
         <action name="Login" class="com.exavalu.models.Employee" method="doLogin">
-            <result name="SUCCESS">employeeDetails.jsp</result>
+            <result name="SUCCESS">fakelogin.jsp</result>
             <result name="FAILURE">login.jsp</result>
         </action>       
-        <action name="LogOut" class="com.exavalu.models.Employee" method="doLogOut">
+<!--        <action name="LogOut" class="com.exavalu.models.Employee" method="doLogOut">
             <result name="SUCCESS">landingPage.jsp</result>
-        </action>
-        <action name="LogOut" class="com.exavalu.models.Employee" method="showEmployee">
+        </action>-->
+        <action name="Logout" class="com.exavalu.models.Employee" method="showEmployee">
             <result name="SUCCESS">login.jsp</result>
         </action> 
         <action name="SearchEmployee" class="com.exavalu.models.Employee" method="doSearch">
@@ -35,5 +35,20 @@
             <result name="SUCCESS">login.jsp</result>
             <result name="FAILURE">signup.jsp</result>
         </action>  
+        <action name="ApiFetch" class="com.exavalu.models.User" method="apiCall">
+            <result name="SUCCESS">login.jsp</result>
+            <result name="FAILURE">employeeDetails.jsp</result>
+        </action>  
+        <action name="PreSignUp" class="com.exavalu.models.User" method="doPreSignUp">
+            <result name="DISTRICTLIST">districtlist.jsp</result>
+            <result name="STATELIST">statelist.jsp</result>
+            <result name="SUCCESS">signup.jsp</result>
+            <result name="FAILURE">landingPage.jsp</result>
+            <result name="DONE">login.jsp</result>
+            </action> 
+        <action name="GetAllData" class="com.exavalu.models.User" method="getAllEmployee">
+            <result name="SUCCESS">employeeDetails.jsp</result>
+            <result name="FAILURE">employeeDetails.jsp</result>
+        </action>
     </package>
 </struts>

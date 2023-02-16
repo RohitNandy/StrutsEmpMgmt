@@ -5,11 +5,13 @@
 package com.exavalu.services;
 
 import com.exavalu.models.Employee;
+import com.exavalu.models.User;
 import com.exavalu.utils.JDBCConnectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -62,4 +64,47 @@ public class LoginService {
         return success;
     }
     
+    public boolean doSignUp(User user) {
+        boolean result = false;
+        String sql = "INSERT INTO apiusers(email,password,firstName,lastName,countrycode,statecode,distcode)" + "VALUES(? ,? ,? ,?,?,?,?)";
+
+        try {
+            Connection con = JDBCConnectionManager.getMySQLConnection();
+
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1, user.getEmail());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getFirstName());
+            preparedStatement.setString(4, user.getLastName());
+            preparedStatement.setString(5, user.getCountryCode());
+            preparedStatement.setString(6, user.getStateCode());
+            preparedStatement.setString(7, user.getDistCode());
+
+            System.out.println(preparedStatement);
+            int res = preparedStatement.executeUpdate();
+
+            if (res == 1) {
+                result = true;
+            }
+
+        } catch (SQLException ex) {
+            int e = ex.getErrorCode();
+            System.out.println(e);
+        }
+
+        return result;
+
+    }
+    
+    public boolean doSignUpAll(ArrayList userList) {
+        boolean result = true;
+        for(int i=0;i<userList.size();i++)
+        {
+            if(!doSignUp((User)userList.get(i)))
+            {
+                result=false;
+            }
+        }
+        return result;
+    }
 }

@@ -10,17 +10,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!--        <link href="css/header.css" rel="stylesheet">-->
-<!--        <link rel="stylesheet" href="css/all.min.css">
-        <link rel="stylesheet" href="css/reset-min.css">
-        <link rel="stylesheet" href="css/algolia-min.css">
-        <link rel="stylesheet" href="css/header.css">
-        <link rel="stylesheet" href="css/docs.min.css">
-        <link rel="stylesheet" href="css/index.css">-->
+        <!--        <link rel="stylesheet" href="css/all.min.css">
+                <link rel="stylesheet" href="css/reset-min.css">
+                <link rel="stylesheet" href="css/algolia-min.css">
+                <link rel="stylesheet" href="css/header.css">
+                <link rel="stylesheet" href="css/docs.min.css">
+                <link rel="stylesheet" href="css/index.css">-->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/menu_css.css" rel="stylesheet">
         <!-- Custom styles for this template -->
         <link href="css/product.css" rel="stylesheet">
-        
+
         <title>Employee Management</title>
     </head>
     <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
@@ -29,7 +29,7 @@
 
 
 
-    <jsp:include page="menu.jsp"></jsp:include>
+    <%--<jsp:include page="menu.jsp"></jsp:include>--%>
 
         <div id="example">
             <script>
@@ -40,6 +40,28 @@
                     scripts: ['bootstrap-table.min.js']
                 })
             </script>
+
+<!--            <script>
+
+
+                function fetchEmployee(employeeId) {
+                    $.ajax({
+                        url: 'ShowAllEmployees',
+                        method: 'GET',
+                        data: {id: employeeId},
+                        dataType: 'json',
+                        success: function (data) {
+                            // Do something with the retrieved employee data
+                            console.log(data);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            // Handle any errors that occur during the AJAX request
+                            console.error(textStatus, errorThrown);
+                        }
+                    });
+                }
+
+            </script>-->
 
 
 
@@ -84,19 +106,19 @@
                             <%--<c:set var="empList" value="${requestScope.EmpList}" />--%>
                             <c:forEach items='${EmpList}' var="emp">
                                 <tr>
-                        <td>${emp.employeeId}</td>
-                        <td>${emp.firstName}</td>
-                        <td>${emp.lastName}</td>
-                        <td>${emp.address}</td>
-                        <td>${emp.phone}</td>
-                        <td>${emp.gender}</td>
-                        <td>${emp.age}</td>
-                        <td>${emp.departmentName}</td>
-                        <td>${emp.roleName}</td>
-                        <td>${emp.basicSalary}</td>
-                        <td>${emp.carAllaowance}</td>
-                        <td><a href="EditEmployee?employeeId=${emp.employeeId}">Edit</a></td>
-                    </tr>
+                                    <td>${emp.employeeId}</td>
+                                    <td>${emp.firstName}</td>
+                                    <td>${emp.lastName}</td>
+                                    <td>${emp.address}</td>
+                                    <td>${emp.phone}</td>
+                                    <td>${emp.gender}</td>
+                                    <td>${emp.age}</td>
+                                    <td>${emp.departmentName}</td>
+                                    <td>${emp.roleName}</td>
+                                    <td>${emp.basicSalary}</td>
+                                    <td>${emp.carAllaowance}</td>
+                                    <td><a href="EditEmployee?employeeId=${emp.employeeId}">Edit</a></td>
+                                </tr>
                             </c:forEach>
 
                         </tbody>
@@ -107,43 +129,50 @@
             </div>
             <div class="clearfix"></div>
 
-<!--            <script>
-                var $table = $('#table')
-                var total = 0
+<!--            <div class="form-floating">
+                <select name="stateCode" class="form-select" id="stateCode" onchange="fetchContent('stateCode', 'distCode')" required name="stateCode">
+                    <option value="">Select State</option>
 
-                function getData(number, isAppend) {
-                    if (!isAppend) {
-                        total = 0
-                    }
-                    var data = []
-                    for (var i = total; i < total + number; i++) {
-                        data.push({
-                            'id': i,
-                            'name': 'Item ' + i,
-                            'price': '$' + i
-                        })
-                    }
-                    if (isAppend) {
-                        total += number
-                    } else {
-                        total = number
-                    }
-                    $('#total').text(total)
-                    return data
-                }
+                </select>
+            </div>-->
 
-                function mounted() {
-                    $table.bootstrapTable({data: getData(20)})
-
-                    $('#load').click(function () {
-                        $table.bootstrapTable('load', getData(10000))
-                    })
-
-                    $('#append').click(function () {
-                        $table.bootstrapTable('append', getData(10000, true))
-                    })
-                }
-            </script>-->
+            <!--            <script>
+                            var $table = $('#table')
+                            var total = 0
+            
+                            function getData(number, isAppend) {
+                                if (!isAppend) {
+                                    total = 0
+                                }
+                                var data = []
+                                for (var i = total; i < total + number; i++) {
+                                    data.push({
+                                        'id': i,
+                                        'name': 'Item ' + i,
+                                        'price': '$' + i
+                                    })
+                                }
+                                if (isAppend) {
+                                    total += number
+                                } else {
+                                    total = number
+                                }
+                                $('#total').text(total)
+                                return data
+                            }
+            
+                            function mounted() {
+                                $table.bootstrapTable({data: getData(20)})
+            
+                                $('#load').click(function () {
+                                    $table.bootstrapTable('load', getData(10000))
+                                })
+            
+                                $('#append').click(function () {
+                                    $table.bootstrapTable('append', getData(10000, true))
+                                })
+                            }
+                        </script>-->
         </div>
 
 </html>
