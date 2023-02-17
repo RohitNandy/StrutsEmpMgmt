@@ -7,7 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 public class UserService {
       public static UserService userService = null;
@@ -59,7 +61,7 @@ public class UserService {
     {
        
         
-        String sql = "INSERT INTO employeedb.users(emailAddress,password,firstName,lastName,status,phoneNumber, addressLiinel, addressLine2, countryCode, stateCode, distCode)\n" +
+        String sql = "INSERT INTO employeed.users(emailAddress,password,firstName,lastName,status,phoneNumber, addressLiinel, addressLine2, countryCode, stateCode, distCode)\n" +
 "VALUES(? ,? ,? ,? ,1,?,?,?,?,?,? );";
            
         
@@ -86,6 +88,8 @@ public class UserService {
             
         } catch (SQLException ex) {
             ex.printStackTrace();
+            Logger log = Logger.getLogger(User.class.getName());
+             log.error(LocalDateTime.now()+"  returning Failure from Sign Up method  "+ "error code: "+ex.getErrorCode());
         }
         
         

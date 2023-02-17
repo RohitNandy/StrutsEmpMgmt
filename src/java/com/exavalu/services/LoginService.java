@@ -11,7 +11,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -39,7 +41,7 @@ public class LoginService {
     {
         boolean success = false;
         
-        String sql = "Select * from users where emailAddress=? and password=?";
+        String sql = "Select * from users where emailAddress=? and paaaassword=?";
         
         try {
             Connection con = JDBCConnectionManager.getMySQLConnection();
@@ -57,7 +59,9 @@ public class LoginService {
             }
             
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
+            Logger log = Logger.getLogger(User.class.getName());
+            log.error(LocalDateTime.now()+"  returning Failure from Login method  "+ "error code: "+ex.getErrorCode());
         }
         
         

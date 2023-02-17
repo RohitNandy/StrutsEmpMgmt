@@ -12,6 +12,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
+import org.apache.log4j.Logger;
 import org.apache.struts2.dispatcher.ApplicationMap;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.ApplicationAware;
@@ -21,12 +22,11 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
 
     private String email;
     private String password;
-   
+
     private String firstName;
     private String lastName, phoneNumber, addressLiinel, addressLine2, countryCode, stateCode, distCode;
     private SessionMap<String, Object> sessionMap = (SessionMap) ActionContext.getContext().getSession();
 
-    
     private ApplicationMap map = (ApplicationMap) ActionContext.getContext().getApplication();
 
     @Override
@@ -54,6 +54,9 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
 
         } else {
             System.out.println("returning Failure from doLogin method");
+            Logger log = Logger.getLogger(User.class.getName());
+            log.error("returning Failure from Login method");
+            
         }
 
         return result;
@@ -65,14 +68,13 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
 //            getSessionMap().put("CountryList", countryList);
 //            return result;
 //    }
-    
     public String getAllEmployee() throws Exception {
         String result = "SUCCESS";
-        
+
         return result;
 
     }
-    
+
     public String doPreSignUp() throws Exception {
         String result = "SUCCESS";
         ArrayList countryList = CountryService.getInstance().getAllCountry();
@@ -85,21 +87,21 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
             sessionMap.put("User", this);
             result = "STATELIST";
         }
-        if ( this.stateCode != null) {
+        if (this.stateCode != null) {
             ArrayList distList = DistrictService.getInstance().getAllDistrict(this.stateCode);
             sessionMap.put("DistrictList", distList);
             this.setStateCode(this.stateCode);
             sessionMap.put("User", this);
             result = "DISTRICTLIST";
         }
-        if (this.addressLine2 != null && this.addressLine2.length()>0 && this.addressLiinel != null && this.addressLiinel.length()>0 && this.phoneNumber != null && this.phoneNumber.length()>0 && this.firstName != null && this.firstName.length()>0 && this.lastName != null && this.lastName.length()>0 && this.email != null && this.email.length()>0 && this.password!= null && this.password.length()>0 && this.stateCode.length()>1 && this.countryCode.length()>1 && this.distCode.length()>1) {
+        if (this.addressLine2 != null && this.addressLine2.length() > 0 && this.addressLiinel != null && this.addressLiinel.length() > 0 && this.phoneNumber != null && this.phoneNumber.length() > 0 && this.firstName != null && this.firstName.length() > 0 && this.lastName != null && this.lastName.length() > 0 && this.email != null && this.email.length() > 0 && this.password != null && this.password.length() > 0 && this.stateCode.length() > 1 && this.countryCode.length() > 1 && this.distCode.length() > 1) {
             boolean success = UserService.getInstance().doSignUp(this);
 
             if (success) {
                 result = "DONE";
                 sessionMap.put("SuccessSignUp", "Successfully Registered");
 
-            } 
+            }
             System.out.println(sessionMap);
             return result;
         }
@@ -112,31 +114,32 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
         return result;
 
     }
-    
+
     public String doLogout() {
         String result = "SUCCESS";
         getSessionMap().clear();
         return result;
     }
-     public String doSignUp(){
-         String result = "FAILURE";
-         boolean success = UserService.getInstance().doSignUp(this);
-         if (success) {
-             String createmsg = "User created !";
-             getSessionMap().put("Createmsg", createmsg);
-           
+
+    public String doSignUp() {
+        String result = "FAILURE";
+        boolean success = UserService.getInstance().doSignUp(this);
+        if (success) {
+            String createmsg = "User created !";
+            getSessionMap().put("Createmsg", createmsg);
+
             System.out.println("returning Success from doLogin method");
             result = "SUCCESS";
-            
+
         } else {
             System.out.println("returning Failure from doLogin method");
         }
-         return result; 
+        return result;
     }
 
-   public String apiCall() throws Exception {
+    public String apiCall() throws Exception {
         String result = "SUCCESS";
-        ArrayList userList=ApiService.getInstance().getAllData();
+        ArrayList userList = ApiService.getInstance().getAllData();
         boolean success = LoginService.getInstance().doSignUpAll(userList);
 
         if (success) {
